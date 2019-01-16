@@ -9,21 +9,21 @@ SELECT DISTINCT ?name ?person ?gender ?active where {
    ?person foaf:name ?name .
    ?person foaf:gender ?gender. 
    {?person dct:subject dbc:20th-century_American_singers}
-union
+OPTIONAL
    {?person dct:subject dbc:Female_rock_singers}
-union
+OPTIONAL
    {?person dct:subject dbc:Canadian_female_folk_guitarists}
-union 
+OPTIONAL 
    {?person dct:subject dbc:Canadian_female_folk_singer-songwriters}
-union
+OPTIONAL
    {?person dct:subject dbc:Canadian_female_pop_singers}
-union
+OPTIONAL
    {?person dct:subject dbc:American_female_rock_singers}
-union
-   {?person dct:subject dbc:American_female_pop_singers}
-union
-   {?person dct:subject dbc:American_female_jazz_singers}
-union
+OPTIONAL
+{?person dct:subject dbc:American_female_pop_singers}
+OPTIONAL
+{?person dct:subject dbc:American_female_jazz_singers}
+OPTIONAL
    {?person dct:subject dbc:American_female_singer-songwriters}.
    ?person dct:subject ?subject.
    ?person dbo:activeYearsStartYear ?active.
