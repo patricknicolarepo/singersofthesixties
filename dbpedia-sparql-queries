@@ -1,0 +1,30 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbp: <http://dbpedia.org/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX dbc: <http://dbpedia.org/resource/Category:>
+
+
+SELECT DISTINCT ?name ?person ?gender ?active where {
+   ?person foaf:name ?name .
+   ?person foaf:gender ?gender. 
+   {?person dct:subject dbc:20th-century_American_singers}
+union
+   {?person dct:subject dbc:Female_rock_singers}
+union
+   {?person dct:subject dbc:Canadian_female_folk_guitarists}
+union 
+   {?person dct:subject dbc:Canadian_female_folk_singer-songwriters}
+union
+   {?person dct:subject dbc:Canadian_female_pop_singers}
+union
+   {?person dct:subject dbc:American_female_rock_singers}
+union
+   {?person dct:subject dbc:American_female_singer-songwriters}.
+   ?person dct:subject ?subject.
+   ?person dbo:activeYearsStartYear ?active.
+
+
+FILTER (?active > "1957-04-18T22:29:33.667Z"^^xsd:dateTime && ?active < "1970-01-01T21:37:37.708Z"^^xsd:dateTime && ?gender = "female"@en)
+
+} order by ?active
