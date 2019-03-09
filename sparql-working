@@ -1,0 +1,19 @@
+SELECT distinct ?name ?person ?thumbnail ?birthDate ?activeStart ?activeEnd 
+where {
+  ?person foaf:name ?name . 
+  ?person dct:subject ?subject.
+  ?person dbo:birthDate ?birthDate. 
+  ?person dbo:activeYearsStartYear ?activeStart. 
+  ?person dbo:activeYearsEndYear ?activeEnd 
+  OPTIONAL {?person dbo:thumbnail ?thumbnail }
+  { ?person a dbo:MusicalArtist . 
+    filter exists {
+        ?person dct:subject/skos:broader* dbc:Female_singers_by_nationality
+    }
+  } 
+  BIND('1955-04-18T22:29:33.667Z'^^xsd:dateTime as ?startPeriod) 
+  BIND('1974-01-01T21:37:37.708Z'^^xsd:dateTime as ?endPeriod) 
+  filter ( (?activeStart > ?startPeriod && ?activeStart < ?endPeriod) 
+         || (?activeStart < ?startPeriod && ?activeEnd > ?startPeriod))
+} 
+order by ?activeStart
